@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: mining_source
+    database: DQLABS
+    schema: SOURCE
+
+    tables:
+      - name: COAL_MINING_OPERATIONS
+      - name: IRON_MINING_OPERATIONS
+      - name: MINE_MASTER
+      - name: WAREHOUSE_MASTER
+      - name: OPERATOR_MASTER
