@@ -1,0 +1,70 @@
+version: 2
+
+models:
+
+  - name: stg_coal_mining
+    description: >
+      Standardized coal mining operational records sourced from
+      DQLABS.SOURCE.COAL_MINING_OPERATIONS.
+
+    config:
+      meta:
+        application: dbt_cloud
+        domain: mining
+        data_layer: staging
+        entity: coal_mining_operations
+        owner: data_engineering
+        criticality: high
+
+  - name: stg_iron_mining
+    description: >
+      Standardized iron mining operational records sourced from
+      DQLABS.SOURCE.IRON_MINING_OPERATIONS.
+
+    config:
+      meta:
+        application: dbt_cloud
+        domain: mining
+        data_layer: staging
+        entity: iron_mining_operations
+        owner: data_engineering
+        criticality: high
+
+  - name: stg_mine
+    description: >
+      Standardized mine master records.
+
+    config:
+      meta:
+        application: dbt_cloud
+        domain: mining
+        data_layer: staging
+        entity: mine_master
+        owner: data_engineering
+        criticality: medium
+
+  - name: stg_warehouse
+    description: >
+      Standardized warehouse master records.
+
+    config:
+      meta:
+        application: dbt_cloud
+        domain: mining
+        data_layer: staging
+        entity: warehouse_master
+        owner: data_engineering
+        criticality: medium
+
+  - name: stg_operator
+    description: >
+      Standardized mining operator master records.
+
+    config:
+      meta:
+        application: dbt_cloud
+        domain: mining
+        data_layer: staging
+        entity: operator_master
+        owner: data_engineering
+        criticality: medium
