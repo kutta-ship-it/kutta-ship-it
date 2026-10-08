@@ -2,9 +2,14 @@ version: 2
 
 models:
 
+  # ==========================================================
+  # DIMENSION: MINE
+  # ==========================================================
+
   - name: dim_mine
     description: >
-      Business-ready mine dimension.
+      Business-ready mine dimension containing standardized
+      information about mines used in mining production reporting.
 
     config:
       meta:
@@ -15,9 +20,42 @@ models:
         owner: analytics_engineering
         criticality: high
 
+    columns:
+
+      - name: mine_id
+        description: Unique identifier for the mine.
+
+        tests:
+          - unique
+          - not_null
+
+      - name: mine_name
+        description: Name of the mine.
+
+        tests:
+          - not_null
+
+      - name: mine_type
+        description: Mineral classification of the mine.
+
+      - name: location
+        description: Geographic location of the mine.
+
+      - name: status
+        description: Operational status of the mine.
+
+      - name: opening_date
+        description: Date on which mine operations began.
+
+
+  # ==========================================================
+  # DIMENSION: WAREHOUSE
+  # ==========================================================
+
   - name: dim_warehouse
     description: >
-      Business-ready warehouse dimension.
+      Business-ready warehouse dimension containing warehouse
+      capacity, location, and management information.
 
     config:
       meta:
@@ -28,9 +66,42 @@ models:
         owner: analytics_engineering
         criticality: high
 
+    columns:
+
+      - name: warehouse_id
+        description: Unique identifier for the warehouse.
+
+        tests:
+          - unique
+          - not_null
+
+      - name: warehouse_name
+        description: Name of the warehouse.
+
+        tests:
+          - not_null
+
+      - name: location
+        description: Geographic location of the warehouse.
+
+      - name: capacity_tonnes
+        description: Total warehouse storage capacity in tonnes.
+
+        tests:
+          - not_null
+
+      - name: warehouse_manager
+        description: Name of the warehouse manager.
+
+
+  # ==========================================================
+  # DIMENSION: OPERATOR
+  # ==========================================================
+
   - name: dim_operator
     description: >
-      Business-ready mining operator dimension.
+      Business-ready mining operator dimension containing operator,
+      headquarters, licence, and contact information.
 
     config:
       meta:
@@ -41,9 +112,44 @@ models:
         owner: analytics_engineering
         criticality: high
 
+    columns:
+
+      - name: operator_id
+        description: Unique identifier for the mining operator.
+
+        tests:
+          - unique
+          - not_null
+
+      - name: operator_name
+        description: Business name of the mining operator.
+
+        tests:
+          - unique
+          - not_null
+
+      - name: headquarter
+        description: Headquarters location of the operator.
+
+      - name: license_number
+        description: Mining licence number.
+
+        tests:
+          - not_null
+
+      - name: contact_email
+        description: Contact email address of the operator.
+
+
+  # ==========================================================
+  # FACT: MINING PRODUCTION
+  # ==========================================================
+
   - name: fact_mining_production
     description: >
-      Consolidated coal and iron mining production fact table.
+      Consolidated fact table containing coal and iron mining
+      production records, quantities, production costs, operators,
+      warehouses, mines, and compliance information.
 
     config:
       meta:
@@ -54,15 +160,78 @@ models:
         owner: analytics_engineering
         criticality: critical
 
-  - name: fact_monthly_production
-    description: >
-      Monthly aggregate of coal and iron mining production.
+    columns:
 
-    config:
-      meta:
-        application: dbt_cloud
-        domain: mining
-        data_layer: consumption
-        entity: monthly_mining_production
-        owner: analytics_engineering
-        criticality: high
+      - name: extraction_date
+        description: Date on which extraction occurred.
+
+        tests:
+          - not_null
+
+
+      - name: mine_id
+        description: Identifier of the mine associated with production.
+
+        tests:
+          - not_null
+
+          - relationships:
+              arguments:
+                to: ref('dim_mine')
+                field: mine_id
+
+
+      - name: warehouse_id
+        description: Identifier of the associated warehouse.
+
+        tests:
+          - not_null
+
+          - relationships:
+              arguments:
+                to: ref('dim_warehouse')
+                field: warehouse_id
+
+
+      - name: operator
+        description: Name of the company operating the mining process.
+
+        tests:
+          - not_null
+
+          - relationships:
+              arguments:
+                to: ref('dim_operator')
+                field: operator_name
+
+
+      - name: mineral_type
+        description: Mineral category represented by the fact record.
+
+        tests:
+          - not_null
+
+          - accepted_values:
+              arguments:
+                values:
+                  - COAL
+                  - IRON
+
+
+      - name: quantity_tonnes
+        description: Mineral production quantity in tonnes.
+
+        tests:
+          - not_null
+
+
+      - name: total_cost
+        description: Total calculated production cost.
+
+        tests:
+          - not_null
+
+
+      - name: compliance_status
+        description: >
+          Compliance status associated with the production record.

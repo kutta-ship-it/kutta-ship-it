@@ -2,12 +2,181 @@ version: 2
 
 sources:
   - name: mining_source
+    description: >
+      Snowflake source schema containing mining operational
+      and master-data tables.
+
     database: DQLABS
     schema: SOURCE
 
     tables:
+
+      # ======================================================
+      # COAL MINING OPERATIONS
+      # ======================================================
+
       - name: COAL_MINING_OPERATIONS
+        description: >
+          Raw coal mining operational records.
+
+        columns:
+
+          - name: Unit_ID
+            quote: true
+            description: Identifier of the mining unit.
+            tests:
+              - not_null
+
+          - name: Mine_ID
+            quote: true
+            description: Identifier of the associated mine.
+            tests:
+              - not_null
+
+          - name: Warehouse_ID
+            quote: true
+            description: Identifier of the associated warehouse.
+            tests:
+              - not_null
+
+          - name: Extraction_Date
+            quote: true
+            description: Date of coal extraction.
+            tests:
+              - not_null
+
+          - name: Quantity_Tonnes
+            quote: true
+            description: Quantity of coal extracted in tonnes.
+            tests:
+              - not_null
+
+          - name: Production_Cost_Per_Tonne
+            quote: true
+            description: Production cost per tonne of coal.
+            tests:
+              - not_null
+
+
+      # ======================================================
+      # IRON MINING OPERATIONS
+      # ======================================================
+
       - name: IRON_MINING_OPERATIONS
+        description: >
+          Raw iron mining operational records.
+
+        columns:
+
+          - name: Unit_ID
+            quote: true
+            description: Identifier of the mining unit.
+            tests:
+              - not_null
+
+          - name: Mine_ID
+            quote: true
+            description: Identifier of the associated mine.
+            tests:
+              - not_null
+
+          - name: Warehouse_ID
+            quote: true
+            description: Identifier of the associated warehouse.
+            tests:
+              - not_null
+
+          - name: Extraction_Date
+            quote: true
+            description: Date of iron extraction.
+            tests:
+              - not_null
+
+          - name: Quantity_Tonnes
+            quote: true
+            description: Quantity of iron ore extracted in tonnes.
+            tests:
+              - not_null
+
+          - name: Production_Cost_Per_Tonne
+            quote: true
+            description: Production cost per tonne of iron ore.
+            tests:
+              - not_null
+
+
+      # ======================================================
+      # MINE MASTER
+      # ======================================================
+
       - name: MINE_MASTER
+        description: >
+          Master data containing mine identifiers and attributes.
+
+        columns:
+
+          - name: MINE_ID
+            description: Unique mine identifier.
+            tests:
+              - unique
+              - not_null
+
+          - name: MINE_NAME
+            description: Name of the mine.
+            tests:
+              - not_null
+
+
+      # ======================================================
+      # WAREHOUSE MASTER
+      # ======================================================
+
       - name: WAREHOUSE_MASTER
+        description: >
+          Master data containing warehouse identifiers,
+          locations, capacities, and managers.
+
+        columns:
+
+          - name: WAREHOUSE_ID
+            description: Unique warehouse identifier.
+            tests:
+              - unique
+              - not_null
+
+          - name: WAREHOUSE_NAME
+            description: Name of the warehouse.
+            tests:
+              - not_null
+
+          - name: CAPACITY_TONNES
+            description: Warehouse capacity in tonnes.
+            tests:
+              - not_null
+
+
+      # ======================================================
+      # OPERATOR MASTER
+      # ======================================================
+
       - name: OPERATOR_MASTER
+        description: >
+          Master data containing mining operator information.
+
+        columns:
+
+          - name: OPERATOR_ID
+            description: Unique operator identifier.
+            tests:
+              - unique
+              - not_null
+
+          - name: OPERATOR_NAME
+            description: Business name of the mining operator.
+            tests:
+              - not_null
+
+          - name: LICENSE_NUMBER
+            description: Mining licence number.
+            tests:
+              - not_null
