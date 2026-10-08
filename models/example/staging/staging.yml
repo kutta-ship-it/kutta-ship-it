@@ -1,7 +1,6 @@
 version: 2
 
 models:
-
   - name: stg_coal_mining
     description: >
       Standardized coal mining operational records sourced from
@@ -15,6 +14,37 @@ models:
         entity: coal_mining_operations
         owner: data_engineering
         criticality: high
+
+    columns:
+      - name: unit_id
+        description: Mining unit identifier.
+        tests:
+          - not_null
+
+      - name: mine_id
+        description: Mine identifier.
+        tests:
+          - not_null
+
+      - name: warehouse_id
+        description: Warehouse identifier.
+        tests:
+          - not_null
+
+      - name: extraction_date
+        description: Date of coal extraction.
+        tests:
+          - not_null
+
+      - name: quantity_tonnes
+        description: Quantity extracted in tonnes.
+        tests:
+          - not_null
+
+      - name: total_cost
+        description: Total calculated production cost.
+        tests:
+          - not_null
 
   - name: stg_iron_mining
     description: >
@@ -30,6 +60,37 @@ models:
         owner: data_engineering
         criticality: high
 
+    columns:
+      - name: unit_id
+        description: Mining unit identifier.
+        tests:
+          - not_null
+
+      - name: mine_id
+        description: Mine identifier.
+        tests:
+          - not_null
+
+      - name: warehouse_id
+        description: Warehouse identifier.
+        tests:
+          - not_null
+
+      - name: extraction_date
+        description: Date of iron extraction.
+        tests:
+          - not_null
+
+      - name: quantity_tonnes
+        description: Quantity extracted in tonnes.
+        tests:
+          - not_null
+
+      - name: total_cost
+        description: Total calculated production cost.
+        tests:
+          - not_null
+
   - name: stg_mine
     description: >
       Standardized mine master records.
@@ -42,6 +103,13 @@ models:
         entity: mine_master
         owner: data_engineering
         criticality: medium
+
+    columns:
+      - name: mine_id
+        description: Unique mine identifier.
+        tests:
+          - unique
+          - not_null
 
   - name: stg_warehouse
     description: >
@@ -56,6 +124,13 @@ models:
         owner: data_engineering
         criticality: medium
 
+    columns:
+      - name: warehouse_id
+        description: Unique warehouse identifier.
+        tests:
+          - unique
+          - not_null
+
   - name: stg_operator
     description: >
       Standardized mining operator master records.
@@ -68,3 +143,16 @@ models:
         entity: operator_master
         owner: data_engineering
         criticality: medium
+
+    columns:
+      - name: operator_id
+        description: Unique operator identifier.
+        tests:
+          - unique
+          - not_null
+
+      - name: operator_name
+        description: Unique operator business name.
+        tests:
+          - unique
+          - not_null
