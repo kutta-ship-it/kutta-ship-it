@@ -1,0 +1,68 @@
+version: 2
+
+models:
+
+  - name: dim_mine
+    description: >
+      Business-ready mine dimension.
+
+    config:
+      meta:
+        application: dbt_cloud
+        domain: mining
+        data_layer: consumption
+        entity: mine
+        owner: analytics_engineering
+        criticality: high
+
+  - name: dim_warehouse
+    description: >
+      Business-ready warehouse dimension.
+
+    config:
+      meta:
+        application: dbt_cloud
+        domain: mining
+        data_layer: consumption
+        entity: warehouse
+        owner: analytics_engineering
+        criticality: high
+
+  - name: dim_operator
+    description: >
+      Business-ready mining operator dimension.
+
+    config:
+      meta:
+        application: dbt_cloud
+        domain: mining
+        data_layer: consumption
+        entity: operator
+        owner: analytics_engineering
+        criticality: high
+
+  - name: fact_mining_production
+    description: >
+      Consolidated coal and iron mining production fact table.
+
+    config:
+      meta:
+        application: dbt_cloud
+        domain: mining
+        data_layer: consumption
+        entity: mining_production
+        owner: analytics_engineering
+        criticality: critical
+
+  - name: fact_monthly_production
+    description: >
+      Monthly aggregate of coal and iron mining production.
+
+    config:
+      meta:
+        application: dbt_cloud
+        domain: mining
+        data_layer: consumption
+        entity: monthly_mining_production
+        owner: analytics_engineering
+        criticality: high
