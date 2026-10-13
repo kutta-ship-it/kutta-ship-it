@@ -36,8 +36,7 @@ select
     "Equipment_Used"
         as equipment_used,
 
-    "Operator"
-        as operator,
+    TRIM(UPPER("Operator")) as operator,
 
     "Location"
         as location,
