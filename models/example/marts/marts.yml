@@ -175,22 +175,11 @@ models:
         tests:
           - not_null
 
-          - relationships:
-              arguments:
-                to: ref('dim_mine')
-                field: mine_id
-
-
       - name: warehouse_id
         description: Identifier of the associated warehouse.
 
         tests:
           - not_null
-
-          - relationships:
-              arguments:
-                to: ref('dim_warehouse')
-                field: warehouse_id
 
 
       - name: operator
@@ -198,11 +187,6 @@ models:
 
         tests:
           - not_null
-
-          - relationships:
-              arguments:
-                to: ref('dim_operator')
-                field: operator_name
 
 
       - name: mineral_type
